@@ -1,0 +1,90 @@
+[meta title:"Hello" description:"Short description of your project" /]
+
+[Header
+  fullWidth:true
+  title:"Hypothesis Testing Explanation"
+  subtitle:"An interactive guide to hypothesis testing"
+  author:"QKE A3"
+  authorLink:"https://idyll-lang.org"
+  date:`(new Date()).toDateString()`
+  background:"#222222"
+  color:"#ffffff"
+   /]
+
+## Introduction
+
+This post is for explaining a basic but very important concept: Hypothesis testing. 
+
+First, let us look at how data sample is generating. Below is an empirical histogram of 
+a sample, whose data generating process is a normal distribution. 
+
+Please feel free to update the parameters to see how the sample changes. 
+
+Please pay carefull to the second graph, it is a **sampling distribution** of the sample mean.
+
+We now from the **Central Limit Theorem** that the sample mean will converge to a Normal distribution 
+of [Equation]N (\mu = 0, s.e = \frac{\sigma}{\sqrt{n}})[/Equation], where s.e is the standard error or just the standard deviation of the sample mean's distribution. 
+
+As we scale up sample size, we can see that we achieve much tighter range of sample mean. In 
+other words, the sample mean estimation is more accurate. 
+
+[var name:"mean" value:0 /]
+[Range min:-1 max:1 value:mean step:0.5/]
+Mean: [Display value:mean /]
+
+[var name:"sd" value:1 /]
+[Range min:0.25 max:2 value:sd step:0.25 /]
+Std. Deviation: [Display value:sd /]
+
+[var name:"samplesize" value:1000 /]
+[Range min:1000 max:5000 value:samplesize step:100/]
+Sample size: [Display value:samplesize /]
+
+[var name:"state1" value:0 /]
+
+[Hist stat:state1 mean:mean sd:sd samplesize:samplesize/]
+[button onClick:`state1++`]
+  Resample
+[/button]
+
+[MeanHist mean:mean sd:sd samplesize:samplesize/]
+
+## Hypothesis testing using quantile versus t-statistics:
+
+So we have learned that the bigger sample size will give a narrower sample mean distribution. How should we proceed next? Let's say below is the sampling distribution of a sample mean centering at 0 and s.e is 1. At a fixed tail percentage, we have an according quantile value. In a 2-tail test, we call them left quantile and right quantile. 
+
+
+[var name:"alpha" value:0.05/]
+[Range min:0.05 max:0.1 value:alpha step:0.025 /]
+Tail percentage: [Display value:`alpha*100` /]%
+[GaussianCurve alpha:alpha/]
+
+## Hypothesis testing using p-value:
+
+Let's say we have a t-statistics that yields [Equation]p-value = 10\%[/Equation]. This means, under the Null hypothesis, we only have 10% to achieve such a statistics or more extreme than that. What does it even mean? Let's generate more samples (and more statistics) to verify that. 
+[var name:"state3" value:0 /]
+[var name:"reject" value:0 /]
+
+[GaussianCurve2 state:state3 reject:reject/]
+[button onClick:`state3++`]
+  Generate a statistic
+[/button]
+Number of statistics drawn: [Display value:state3 /]
+
+
+## Type I and Type II error
+
+Below we are showing the distribution of the data under the Null and
+Alternative Hypotheses.
+
+[var name:"state2" value:0 /]
+[CustomD3Component className:"d3-component" state:state2 mean:mean sd:1 samplesize:samplesize/]
+[button onClick:`state2++`]
+  Click Me.
+[/button]
+
+
+## Acknowledgement
+
+This page is powered by Idyll at https://idyll-lang.org/docs/,
+join the [chatroom](https://gitter.im/idyll-lang/Lobby), or see the project on [GitHub](https://github.com/idyll-lang/idyll).
