@@ -12,6 +12,8 @@ class GaussianCurve2 extends D3Component {
     var data = [];
     this.reject = 0;
     this.sim = 0;
+    this.intervalHandle=null;
+
     // loop to populate data array with 
     // probabily - quantile pairs
     for (var i = 0; i < 1000000; i++) {
@@ -135,7 +137,19 @@ class GaussianCurve2 extends D3Component {
         var reject_rate = (this.reject/this.sim).toFixed(2);
         this.svg.append("text").attr("x", 300).attr("y", 60).text("Rejection Rate = " + reject_rate)
         .style("font-size", "15px").attr("alignment-baseline","middle");
+    
+        if(props.play==1 && this.intervalHandle===null) {
+            console.log("setting interval timer");
+            this.intervalHandle = setInterval(()=>this.replot(), 200);
+        } else { 
+            console.log("clearing timer");
+            clearInterval(this.intervalHandle); 
+            this.intervalHandle=null;
+        }
+        console.log("after branch");
     }
+
+    
 
     replot(alpha){
     var data = [];

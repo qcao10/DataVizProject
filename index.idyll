@@ -2,7 +2,7 @@
 
 [Header
   fullWidth:true
-  title:"Hypothesis Testing Explanation"
+  title:"That's not fair!"
   subtitle:"An interactive guide to hypothesis testing"
   author:"QKE A3"
   authorLink:"https://idyll-lang.org"
@@ -13,16 +13,22 @@
 
 ## Introduction
 
-This post is for explaining a basic but very important concept: Hypothesis testing. 
+Few things in life are what we'd call __simple__, but hopefully we can all agree, one of the simplest kind of scenarios we can imagine that isn't just constant, is something with "just two outcomes". When we're only consiering logic (or strong feelings), we can usually simplify most things into combinations of many different factors that are just true and false. If you get a cup of coffee, do you want to add sugar or not? Do you add creamer or skip the dairy? A easy common place example might be, when you flip a coin is it heads or tails?
 
-First, let us look at how data sample is generating. Below is an empirical histogram of 
+[Coin/]
+
+While many people don't place their important life decisions in the hands of a coin flip, you definitely want something better than a coin flip when it comes to decisions like "innocent" or "guilty"!
+
+As you follow along, we'll be exploring a basic, but very important concept: Hypothesis testing. 
+
+First, let us look at how data sample is generated. Below is an empirical histogram of 
 a sample, whose data generating process is a normal distribution. 
 
 Please feel free to update the parameters to see how the sample changes. 
 
-Please pay carefull to the second graph, it is a **sampling distribution** of the sample mean.
+Please pay careful to the next graph, it is a **sampling distribution** of the sample mean.
 
-We now from the **Central Limit Theorem** that the sample mean will converge to a Normal distribution 
+The **Central Limit Theorem** states that the sample mean will converge to a Normal distribution 
 of [Equation]N (\mu = 0, s.e = \frac{\sigma}{\sqrt{n}})[/Equation], where s.e is the standard error or just the standard deviation of the sample mean's distribution. 
 
 As we scale up sample size, we can see that we achieve much tighter range of sample mean. In 
@@ -64,10 +70,14 @@ Tail percentage: [Display value:`alpha*100` /]%
 Let's say we have a t-statistics that yields [Equation]p-value = 10\%[/Equation]. This means, under the Null hypothesis, we only have 10% to achieve such a statistics or more extreme than that. What does it even mean? Let's generate more samples (and more statistics) to verify that. 
 [var name:"state3" value:0 /]
 [var name:"reject" value:0 /]
+[var name:"playG2" value:0/]
 
-[GaussianCurve2 state:state3 reject:reject/]
+[GaussianCurve2 state:state3 reject:reject play:playG2/]
 [button onClick:`state3++`]
   Generate a statistic
+[/button]
+[button onClick:`playG2 = 1-playG2`]
+[Display var:`playG2 === 0 ? '▶' : '❙❙'` /]
 [/button]
 Number of statistics drawn: [Display value:state3 /]
 
