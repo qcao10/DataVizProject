@@ -1,4 +1,4 @@
-[meta title:"Hello" description:"Short description of your project" /]
+[meta title:"That's not fair!" description:"An interactive guide to hypothesis testing" /]
 
 [Header
   fullWidth:true
@@ -13,11 +13,77 @@
 
 ## Introduction
 
-Few things in life are what we'd call __simple__, but hopefully we can all agree, one of the simplest kind of scenarios we can imagine that isn't just constant, is something with "just two outcomes". When we're only consiering logic (or strong feelings), we can usually simplify most things into combinations of many different factors that are just true and false. If you get a cup of coffee, do you want to add sugar or not? Do you add creamer or skip the dairy? A easy common place example might be, when you flip a coin is it heads or tails?
+Few things in life are what we'd call __simple__, but hopefully we can all agree, one of the simplest kind of scenarios we can imagine that isn't just constant, is something with "just two outcomes". When we're only consiering logic (or strong feelings), we can usually simplify most things into combinations of many different factors that are just true and false. If you get a cup of coffee, do you want to add sugar or not? Do you add creamer or skip the dairy? A easy common place example might be, when you flip a coin is it heads or tails? 
 
 [Coin/]
 
-While many people don't place their important life decisions in the hands of a coin flip, you definitely want something better than a coin flip when it comes to decisions like "innocent" or "guilty"!
+These types of mutually exclusive binary outcomes are sometimes called __Bernoulli random variables__. The simplest binomial distribution, with only one trail, is also called the __Bernoulli distribution__.
+
+While many people don't place important life decisions in the hands of a coin flip, you definitely want to have more confidence than a coin flip when it comes to decisions like if you or someone else is "innocent" or "guilty"!
+
+## The Binomial Count
+
+[var name:"hardcoded_trials" value:4/]
+
+For this distribution, any order of results counts as a combination for that many Heads. e.g. H, H, T, T and H, T, H, T both count as two heads and two tails. So, more common counts of outcomes have higher probabilities. The red bar highlights how common the selected outcome is for [Display value:hardcoded_trials format:"d" /] flips (aka trials). 
+
+[var name:"success" value:0 /]
+Number of Flips: [Display value:hardcoded_trials format:"d" /]
+
+Number of Heads: [Display value:success format:"d" /]
+
+Example Flips: [CoinFlips n:4 k:success duration:0.25 /] 
+
+[Binomial n:4 k: success /]
+
+### The Binomial Distribution
+
+As the number of trials increases, so does the probability of ways to get "half and half" outcomes. This makes plenty of sense. If there are 50 flips, we could see 25 heads in many different orders, but getting all heads or all tails only happens 1 way.
+
+[var name:"trials" value:4 /]
+[var name:"success2" value:0 /]
+
+
+Number of Flips:  
+
+[Range min:2 max:14 value:trials interval:1 format:"d" /] [Display value:trials format:"d" /]
+
+Number of Heads:  
+[Display value:success2 format:"d" /]
+
+[CoinFlips n:trials size: 50 k:success2 duration:0.25 /]
+
+[Binomial n:trials k:success2 /]
+
+Normally, we expect a coin to be "fair", "equally weighted", or unbaised. In terms of a coin, this just means it really has an equal chance of coming up heads or tails. It can however come up with any combination of heads or tails for a given number of trials.
+
+### Skewed Distributions (That's Unfair!)
+
+However, we know from experience that sometimes things are biased. Sometimes other people want an advantage, they have preconcieved notions, or they've had bad experiences in the past. In these sorts of situations, the probability of some specific outcome may be more likely than equal ("fair").
+
+[var name:"trials2" value:8 /]
+Number of Flips: 
+[Range min:2 max:40 value:trials2 interval:1 format: "d" /] [Display value:trials2 format:"d" /]
+
+
+[var name:"binom_mean" value:0.5 /]
+Bias (Probability of Success): [Range min:0.1 max: 0.9 value:binom_mean step: 0.1 /] [Display value:binom_mean /]
+[Binomial n: trials2 mean: binom_mean/]
+
+### Being confident!
+
+[var name:"trials3" value:8 /]
+Number of Flips: [Range min:2 max:40 value: trials3 interval:1 format: "d" /] [Display value: trials3 format:"d" /]
+
+[var name:"binom_mean_h_0" value:0.5 /]
+[var name:"binom_mean_h_a" value:0.5 /]
+
+[Equation]H_0[/Equation] Bias: [Display value: binom_mean_h_0 /] 
+
+[Equation]H_a[/Equation] Bias: [Range min:0 max: 1 value: binom_mean_h_a step: 0.1 /] [Display value:binom_mean_h_a /] 
+
+[Binomial n: trials3 mean: binom_mean_h_0 mean_h_a: binom_mean_h_a/]
+
 
 As you follow along, we'll be exploring a basic, but very important concept: Hypothesis testing. 
 
@@ -26,9 +92,11 @@ a sample, whose data generating process is a normal distribution.
 
 Please feel free to update the parameters to see how the sample changes. 
 
-Please pay careful to the next graph, it is a **sampling distribution** of the sample mean.
+Pay careful attention to the next graph. It shows the **sampling distribution** of the sample mean, not the binomial distribution we just looked. The binomial distribution is what the samples are drawn from, and the sampling distribution is more like the values look when we actually encounter them randomly. In both cases, we can see there are peaks, where some things are more common than others, and the extreme cases are rare.
 
-The **Central Limit Theorem** states that the sample mean will converge to a Normal distribution 
+As we randomly sample from any distribution, the resulting distribution approaches the normal distribution the more samples we take of it.
+
+In other words, the **Central Limit Theorem** states that the sample mean will converge to a Normal distribution 
 of [Equation]N (\mu = 0, s.e = \frac{\sigma}{\sqrt{n}})[/Equation], where s.e is the standard error or just the standard deviation of the sample mean's distribution. 
 
 As we scale up sample size, we can see that we achieve much tighter range of sample mean. In 
