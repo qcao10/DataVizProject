@@ -50,7 +50,7 @@ class CoinFlips extends React.PureComponent {
         console.log("update array called for", i, "with", res);
         
         this.trials_arr[i] = res;
-        //console.log("update successes", this.trials_arr);
+        console.log("update successes", this.trials_arr);
 
         const sum = (acc, x_i) => acc+x_i;
 
