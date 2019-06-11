@@ -21,6 +21,8 @@ These types of mutually exclusive binary outcomes are sometimes called __Bernoul
 
 While many people don't place important life decisions in the hands of a coin flip, you definitely want to have more confidence than a coin flip when it comes to decisions like if you or someone else is "innocent" or "guilty"!
 
+Please feel free to update the parameters to see how the sample changes.  
+
 ## The Binomial Count
 
 [var name:"hardcoded_trials" value:4/]
@@ -38,7 +40,21 @@ Example Flips: [CoinFlips n:4 k:success duration:0.25 /]
 
 ### The Binomial Distribution
 
-As the number of trials increases, so does the probability of ways to get "half and half" outcomes. This makes plenty of sense. If there are 50 flips, we could see 25 heads in many different orders, but getting all heads or all tails only happens 1 way.
+As the number of trials increases, so does the probability of ways to get "half and half" outcomes. This makes plenty of sense. If there are 50 flips, we could see 25 heads in many different orders, but getting all heads or all tails only happens 1 way.  
+
+The binomial distrubiton is described mathematically as follows:  
+
+
+[Equation]\sum_{k=1}^{n} {n \choose k}(1-p)^{n-k}p^{k}[/Equation]  
+
+
+This is a shorthand way of saying we calculate the number of possible permutations (when order matters) that result in a given combination (when order doesnt matter). This is the [Equation]\sum_{k=1}^{n} {n \choose k}[/Equation] part.  
+
+
+We then scale these counts by the joint probability of each outcome. The part where [Equation]p^{k}[/Equation] or [Equation](1-p)^{n-k}[/Equation]. We find that value by raising the probability to a power, e.g. [Equation]p^{k}[/Equation].  
+
+
+Finally we find the joint probabilty of this combination of those specific outcomes  ([Equation](1-p)^{n-k}p^{k}[/Equation]).  
 
 [var name:"trials" value:4 /]
 [var name:"success2" value:0 /]
@@ -66,7 +82,7 @@ Number of Flips:
 [Range min:2 max:40 value:trials2 interval:1 format: "d" /] [Display value:trials2 format:"d" /]
 
 
-[var name:"binom_mean" value:0.5 /]
+[var name:"binom_mean" value:0.2 /]
 Bias (Probability of Success): [Range min:0.1 max: 0.9 value:binom_mean step: 0.1 /] [Display value:binom_mean /]
 [Binomial n: trials2 mean: binom_mean/]
 
@@ -84,15 +100,12 @@ Number of Flips: [Range min:2 max:40 value: trials3 interval:1 format: "d" /] [D
 
 [Binomial n: trials3 mean: binom_mean_h_0 mean_h_a: binom_mean_h_a/]
 
-
 As you follow along, we'll be exploring a basic, but very important concept: Hypothesis testing. 
 
 First, let us look at how data sample is generated. Below is an empirical histogram of 
 a sample, whose data generating process is a normal distribution. 
 
-Please feel free to update the parameters to see how the sample changes. 
-
-Pay careful attention to the next graph. It shows the **sampling distribution** of the sample mean, not the binomial distribution we just looked. The binomial distribution is what the samples are drawn from, and the sampling distribution is more like the values look when we actually encounter them randomly. In both cases, we can see there are peaks, where some things are more common than others, and the extreme cases are rare.
+Pay careful attention to the next graph. It shows the **sampling distribution** of the sample mean, not just the normal distribution or the binomial distribution we previously looked at. The binomial distribution is a distribution the samples can be drawn from, and the sampling distribution is more like the values look when we actually encounter them randomly. In both cases, we can see there are peaks, where some things are more common than others, and the extreme cases are rare.
 
 As we randomly sample from any distribution, the resulting distribution approaches the normal distribution the more samples we take of it.
 
@@ -147,7 +160,7 @@ Let's say we have a t-statistics that yields [Equation]p-value = 10\%[/Equation]
 [button onClick:`playG2 = 1-playG2`]
 [Display var:`playG2 === 0 ? '▶' : '❙❙'` /]
 [/button]
-Number of statistics drawn: [Display value:state3 /]
+Number of statistics drawn: [Display value:state3 format:"d"/]
 
 
 ## Type I and Type II error
@@ -160,6 +173,8 @@ Alternative Hypotheses.
 [button onClick:`state2++`]
   Click Me.
 [/button]
+
+[GaussianHT/]
 
 
 ## Acknowledgement
