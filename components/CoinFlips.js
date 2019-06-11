@@ -14,11 +14,11 @@ class CoinFlips extends React.PureComponent {
             this.size = props.size;
         }
 
-        console.log("constructing coinflips")
+        //console.log("constructing coinflips")
 
         //console.log(this.props);
          
-        this.props.updateProps({"trigger_render": 1});
+        //this.props.updateProps({"trigger_render": 1});
         this.calcCoins(props);
 
     }
@@ -64,16 +64,17 @@ class CoinFlips extends React.PureComponent {
 
     componentDidUpdate(prevProps) {
         
-        console.log("component updated props", this.props);
-        this.calcCoins(this.props);
+        //can't call render from here... :/ allowing the user to slide a range slider to flip coins (or click a button to randomly flip all coins) and allowing them to individually flip coins seems fraught with many implemtation issues that aren't so simple
+        //console.log("component updated props", this.props);
+        //this.calcCoins(this.props);
         //this.props.updateProps({"trigger_render": 1-this.props.trigger_render});
     }
 
     render(){
 
-        console.log("rendering coinflips");
+        //console.log("rendering coinflips");
 
-        console.log("coinflips", this.props);
+        //console.log("coinflips", this.props);
 
         //console.log(this.trials_arr);
         //1xk, with i success
