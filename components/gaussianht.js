@@ -27,7 +27,7 @@ class GaussianHT extends D3Component {
         this.data.sort(function(x, y) {
             return x.q - y.q;
         });
-        
+
     }
 
     // from http://bl.ocks.org/mbostock/4349187
@@ -91,7 +91,7 @@ class GaussianHT extends D3Component {
 
         this.yAxis = d3.axisLeft(this.y);
 
-        let yval = 450; //Arbitrary Height
+        let yval = 270; //Arbitrary Height
         let xval = 445; //Stopping point. Max x = 800 (0 coordinate = 445)
 
         console.log("calculating svg areas")
