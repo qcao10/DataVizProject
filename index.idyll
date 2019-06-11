@@ -1,11 +1,11 @@
-[meta title:"That's not fair!" description:"An interactive guide to hypothesis testing" /]
+[meta title:"Is your coin really fair?" description:"An interactive guide to hypothesis testing" /]
 
 [Header
   fullWidth:true
-  title:"That's not fair!"
+  title:"Is your coin really fair?"
   subtitle:"An interactive guide to hypothesis testing"
   author:"QKE A3"
-  authorLink:"https://idyll-lang.org"
+  authorLink:"https://qcao10.github.io/DataVizProject/build/"
   date:`(new Date()).toDateString()`
   background:"#222222"
   color:"#ffffff"
@@ -13,28 +13,26 @@
 
 ## Introduction
 
-Few things in life are what we'd call __simple__, but hopefully we can all agree, one of the simplest kind of scenarios we can imagine that isn't just constant, is something with "just two outcomes". When we're only consiering logic (or strong feelings), we can usually simplify most things into combinations of many different factors that are just true and false. If you get a cup of coffee, do you want to add sugar or not? Do you add creamer or skip the dairy? A easy common place example might be, when you flip a coin is it heads or tails? 
+Few things in life are what we'd call __simple__, but hopefully we can all agree, one of the simplest kind of scenarios we can imagine that isn't just constant, is something with "just two outcomes". When we're only considering logic (or strong feelings), we can usually simplify most things into combinations of many different factors that are just true and false. If you get a cup of coffee, do you want to add sugar or not? Do you add creamer or skip the dairy? A easy common place example might be, when you flip a coin is it heads or tails? 
 
 [Coin/]
 
 These types of mutually exclusive binary outcomes are sometimes called __Bernoulli random variables__. The simplest binomial distribution, with only one trail, is also called the __Bernoulli distribution__.
 
-While many people don't place important life decisions in the hands of a coin flip, you definitely want to have more confidence than a coin flip when it comes to decisions like if you or someone else is "innocent" or "guilty"!
-
-Please feel free to update the parameters to see how the sample changes.  
+While many people don't place important life decisions in the hands of a coin flip, a coin flip’s binary outcome can be extremely powerful. Beyond deciding whether we should or should not purchase a cup of coffee, or bring an umbrella to work, we can simulate other experiment outcomes (think about computers operate using only binary signals). It then comes to a natural question, “should we rely on the outcome of a coin since it is a fair 50/50 chance?”, “should we test if a coin is indeed fair?”, “how can we test that and how sure can we be?”. You definitely want to have more confidence than a coin flip when it comes to decisions like if you or someone else is "innocent" or "guilty"!
 
 ## The Binomial Count
 
 [var name:"hardcoded_trials" value:4/]
 
-For this distribution, any order of results counts as a combination for that many Heads. e.g. H, H, T, T and H, T, H, T both count as two heads and two tails. So, more common counts of outcomes have higher probabilities. The red bar highlights how common the selected outcome is for [Display value:hardcoded_trials format:"d" /] flips (aka trials). 
+For this distribution, any order of results counts as a combination for that many Heads. e.g. H, H, T, T and H, T, H, T both count as two heads and two tails. The red bar highlights how likely the selected outcome is for [Display value:hardcoded_trials format:"d" /] flips (aka trials). 
 
 [var name:"success" value:0 /]
 Number of Flips: [Display value:hardcoded_trials format:"d" /]
 
 Number of Heads: [Display value:success format:"d" /]
 
-Example Flips: [CoinFlips n:4 k:success duration:0.25 /] 
+Example Flips (Click to flip the coin): [CoinFlips n:4 k:success duration:0.25 /] 
 
 [Binomial n:4 k: success /]
 
@@ -64,7 +62,7 @@ Number of Flips:
 
 [Range min:2 max:14 value:trials interval:1 format:"d" /] [Display value:trials format:"d" /]
 
-Number of Heads:  
+Number of Heads (Click to flip the coin):  
 [Display value:success2 format:"d" /]
 
 [CoinFlips n:trials size: 50 k:success2 duration:0.25 /]
@@ -73,9 +71,9 @@ Number of Heads:
 
 Normally, we expect a coin to be "fair", "equally weighted", or unbaised. In terms of a coin, this just means it really has an equal chance of coming up heads or tails. It can however come up with any combination of heads or tails for a given number of trials.
 
-### Skewed Distributions (That's Unfair!)
+### A Biased Coin (That's Unfair!)
 
-However, we know from experience that sometimes things are biased. Sometimes other people want an advantage, they have preconcieved notions, or they've had bad experiences in the past. In these sorts of situations, the probability of some specific outcome may be more likely than equal ("fair").
+However, we know from experience that sometimes things are biased. Sometimes other people want an advantage, they have preconcieved notions, or they've had bad experiences in the past. In these sorts of situations, the probability of some specific outcome may be more likely than equal ("fair"). We can make 2 useful observations here. First, when we flip more coins, the distribution will look more like a balanced Gaussian distribution, or we can refer to a Normal approximation of a Binomial distribution. Second, the bias behaves like a location parameter of the binomial distribution, coincides with the expected number of head, or [Equation]E[#heads] = #flips * bias [/Equation]
 
 [var name:"trials2" value:8 /]
 Number of Flips: 
@@ -87,6 +85,8 @@ Bias (Probability of Success): [Range min:0.1 max: 0.9 value:binom_mean step: 0.
 [Binomial n: trials2 mean: binom_mean/]
 
 ### Being confident!
+When we put the two distributions of two coins side-by-side (Figure 6), we can see the likelihood of outcomes can be vastly different. However, there is a chance that we still observe, says 25 heads over 40 flips from both coins, the golden question is: "how can be conclude that we have a fair coin or not"? 
+
 
 [var name:"trials3" value:8 /]
 Number of Flips: [Range min:2 max:40 value: trials3 interval:1 format: "d" /] [Display value: trials3 format:"d" /]
@@ -100,20 +100,16 @@ Number of Flips: [Range min:2 max:40 value: trials3 interval:1 format: "d" /] [D
 
 [Binomial n: trials3 mean: binom_mean_h_0 mean_h_a: binom_mean_h_a/]
 
-As you follow along, we'll be exploring a basic, but very important concept: Hypothesis testing. 
+### Hypothesis Testing
+Take a step back, let us study about **Normal distribution** and **Sampling distribution**. The top graph below is an empirical histogram of a sample of data, whose data generating process is a normal distribution. 
 
-First, let us look at how data sample is generated. Below is an empirical histogram of 
-a sample, whose data generating process is a normal distribution. 
+Pay careful attention to the bottom graph. It shows the **sampling distribution** of the sample mean, not just the normal distribution or the binomial distribution we previously looked at. The binomial distribution is a distribution the samples (the number of heads) can be drawn from. if we start with a given coin, flip it, says 40 times, and record the number of heads, say 25, we get a sample estimator of the probability of head to be 25/40. That counts as one experiment. If we repeat this experiment for many times, we obtain many sample estimators, and the histogram will produce a sampling distribution of the estimators (the likelihood of the probability of head from the given coin).
 
-Pay careful attention to the next graph. It shows the **sampling distribution** of the sample mean, not just the normal distribution or the binomial distribution we previously looked at. The binomial distribution is a distribution the samples can be drawn from, and the sampling distribution is more like the values look when we actually encounter them randomly. In both cases, we can see there are peaks, where some things are more common than others, and the extreme cases are rare.
+As we randomly sample from any distribution, the resulting distribution approaches the normal distribution the more samples  we collect.
 
-As we randomly sample from any distribution, the resulting distribution approaches the normal distribution the more samples we take of it.
+In other words, the **Central Limit Theorem** states that the sampling distribution will follow a Gaussian distribution if we repeat the experiments enough times [Equation]N (\mu = 0, s.e = \frac{\sigma}{\sqrt{n}})[/Equation], where s.e is the standard error or just the standard deviation of the sample mean's distribution. 
 
-In other words, the **Central Limit Theorem** states that the sample mean will converge to a Normal distribution 
-of [Equation]N (\mu = 0, s.e = \frac{\sigma}{\sqrt{n}})[/Equation], where s.e is the standard error or just the standard deviation of the sample mean's distribution. 
-
-As we scale up sample size, we can see that we achieve much tighter range of sample mean. In 
-other words, the sample mean estimation is more accurate. 
+Please feel free to scale up the sample size slider, we can see that the sampling distribution converges to a Gaussian distribution shape and we achieve much narrower range of value at the same time. To put it another way, the sample mean estimation is more accurate. 
 
 [var name:"mean" value:0 /]
 [Range min:-1 max:1 value:mean step:0.5/]
@@ -138,8 +134,7 @@ Sample size: [Display value:samplesize /]
 
 ## Hypothesis testing using quantile versus t-statistics:
 
-So we have learned that the bigger sample size will give a narrower sample mean distribution. How should we proceed next? Let's say below is the sampling distribution of a sample mean centering at 0 and s.e is 1. At a fixed tail percentage, we have an according quantile value. In a 2-tail test, we call them left quantile and right quantile. 
-
+So we have learned that the bigger sample size will give a narrower sample mean distribution. How should we proceed next? Let's say below is the sampling distribution of a sample mean centering at 0 and s.e is 1. At a fixed tail percentage, we have an according quantile value. In a 2-tail test, we call them left quantile and right quantile. From one experiment, flip the coin 40 times and record the number of heads to get an estimator of probability of head, we can compare this estimator to the quantile values. If it is more extreme (to the left of the left quantile or to the right of the right quantile), we will reject the null hypothesis that the coin is fair. 
 
 [var name:"alpha" value:0.05/]
 [Range min:0.05 max:0.1 value:alpha step:0.025 /]
