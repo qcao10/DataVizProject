@@ -73,7 +73,7 @@ Normally, we expect a coin to be "fair", "equally weighted", or unbaised. In ter
 
 ### A Biased Coin (That's Unfair!)
 
-However, we know from experience that sometimes things are biased. Sometimes other people want an advantage, they have preconcieved notions, or they've had bad experiences in the past. In these sorts of situations, the probability of some specific outcome may be more likely than equal ("fair"). We can make 2 useful observations here. First, when we flip more coins, the distribution will look more like a balanced Gaussian distribution, or we can refer to a Normal approximation of a Binomial distribution. Second, the bias behaves like a location parameter of the binomial distribution, coincides with the expected number of head, or [Equation]E[#heads] = #flips * bias [/Equation]
+However, we know from experience that sometimes things are biased. Sometimes other people want an advantage, they have preconcieved notions, or they've had bad experiences in the past. In these sorts of situations, the probability of some specific outcome may be more likely than equal ("fair"). We can make 2 useful observations here. First, when we flip more coins, the distribution will look more like a balanced Gaussian distribution, or we can refer to a Normal approximation of a Binomial distribution. Second, the bias behaves like a location parameter of the binomial distribution, coincides with the expected number of head, or [Equation]\mathbb{E} [\# heads] = \# flips * bias [/Equation]
 
 [var name:"trials2" value:8 /]
 Number of Flips: 
